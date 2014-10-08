@@ -186,7 +186,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Bottom.png" />
+    <Content Include="Content\Images\Eventos.png" />
+    <Content Include="Content\Images\Logo.png" />
+    <Content Include="Content\Images\Menus.png" />
+    <Content Include="Content\Images\Promo.png" />
+    <Content Include="Content\Images\SnackBar.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
