@@ -10,14 +10,7 @@ namespace Food.Controllers
     {
         public ActionResult Index()
         {
-            using (var db = new Food.Models.FoodContext())
-            {
-                var model = db.Foods.ToList();
-                return View(model);
-            }
-
-
-            
+            return View();
         }
 
         public ActionResult About()
