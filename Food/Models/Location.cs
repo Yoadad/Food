@@ -11,7 +11,7 @@ namespace Food.Models
     {
         public Location()
         {
-            Customers = new HashSet<Customer>();
+            AspNetUsers = new HashSet<AspNetUser>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -28,6 +28,6 @@ namespace Food.Models
 
         public virtual Company Company { get; set; }
 
-        public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

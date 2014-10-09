@@ -14,11 +14,12 @@ namespace Food.Models
 
         public int OrderId { get; set; }
 
-        public int CustomerId { get; set; }
-
         public int FoodId { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        [StringLength(128)]
+        public string CustomerId { get; set; }
+
+        public virtual AspNetUser AspNetUser { get; set; }
 
         public virtual Food Food { get; set; }
 

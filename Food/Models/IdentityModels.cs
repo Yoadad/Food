@@ -21,7 +21,7 @@ namespace Food.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Food", throwIfV1Schema: false)
         {
         }
 
