@@ -26,10 +26,30 @@
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Empresas", "Index", "Companies")</li>
                     <li>@Html.ActionLink("Ubicación", "Index", "Locations")</li>
-                    <li>@Html.ActionLink("Estatus", "Index", "OrderStatus")</li>
-                    <li>@Html.ActionLink("Ordenes", "Index", "Orders")</li>
-                    <li>@Html.ActionLink("Comida", "Index", "Foods")</li>
-                    <li>@Html.ActionLink("Detalle Ordenes", "Index", "OrderDetails")</li>
+             
+                   
+                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Ordenes<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Estatus", "Index", "OrderStatus")</li>
+                            <li>@Html.ActionLink("Ordenes", "Index", "Orders")</li>
+                            <li>@Html.ActionLink("Detalle Ordenes", "Index", "OrderDetails")</li>
+                        </ul>
+                    </li>        
+                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Menus<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Menu", "Index", "Menus")</li>
+                            <li>@Html.ActionLink("Menu Detalle", "Index", "MenuDetails")</li>
+                            <li>@Html.ActionLink("Comida", "Index", "Foods")</li>
+                        </ul>
+                    </li>                                      
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
