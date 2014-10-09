@@ -1,0 +1,6 @@
+﻿@model Food.Models.FoodViewModel
+<div class="col-md-4 checkbox">
+        @Html.CheckBoxFor(s => s.Selected)
+        @Html.LabelFor(s => s.Selected, Model.Name)
+        @Html.HiddenFor(s => s.Id)
+</div>

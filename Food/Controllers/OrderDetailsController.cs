@@ -42,9 +42,33 @@ namespace Food.Controllers
             ViewBag.CustomerId = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.FoodId = new SelectList(db.Foods, "Id", "Name");
             ViewBag.OrderId = new SelectList(db.Orders, "Id", "Name");
-            return View();
+            var model = new OrderDetailViewModel();
+            model.Menutems = GetMenuDetails();
+            return View(model);
         }
 
+        private IEnumerable<MenuDetailViewModel> GetMenuDetails()
+        {            
+            var menus = db.Menus.ToList();
+            return menus.Select(s => new MenuDetailViewModel
+            {
+                MenuId = s.Id,
+                Name = s.Name,
+                FoodItems = GetFoodDetail(s.Id)
+            }).ToList();           
+        }
+
+        private IEnumerable<FoodViewModel> GetFoodDetail(int menuId)
+        {
+            var foodIds = db.MenuDetails.Where(s => s.MenuId == menuId).Select(s => s.FoodId).ToList();
+            var foods = db.Foods.ToList();
+            return foods.Where(s => foodIds.Contains(s.Id)).Select(s => new FoodViewModel()
+            {
+                Name = s.Name,
+                Selected = false,
+                Id = s.Id
+            }).ToList();
+        }
         // POST: OrderDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

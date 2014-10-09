@@ -188,8 +188,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\MenuDetail.cs" />
+    <Compile Include="Models\MenuDetailViewModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\OrderDetailViewModel.cs" />
     <Compile Include="Models\OrderStatu.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -300,6 +302,9 @@
     <Content Include="Views\MenuDetails\Details.cshtml" />
     <Content Include="Views\MenuDetails\Edit.cshtml" />
     <Content Include="Views\MenuDetails\Index.cshtml" />
+    <Content Include="Views\MenuDetails\EditorTemplates\FoodViewModel.cshtml" />
+    <Content Include="Views\OrderDetails\EditorTemplates\MenuDetailViewModel.cshtml" />
+    <Content Include="Views\OrderDetails\EditorTemplates\FoodViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
