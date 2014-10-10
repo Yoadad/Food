@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Food.Models.Menu>
+
+<h1>Men&uacute; semanal</h1>
+
+<table class="table">
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                <h4>@item.Name</h4>
+            </td>
+        }
+    </tr>
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                <h5>@item.Date.ToString("dd/MM/yyyy")</h5>
+            </td>
+        }
+    </tr>
+</table>
