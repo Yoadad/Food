@@ -160,6 +160,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Biz\MenuBiz.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
@@ -305,6 +306,7 @@
     <Content Include="Views\MenuDetails\EditorTemplates\FoodViewModel.cshtml" />
     <Content Include="Views\OrderDetails\EditorTemplates\MenuDetailViewModel.cshtml" />
     <Content Include="Views\OrderDetails\EditorTemplates\FoodViewModel.cshtml" />
+    <Content Include="Views\Menus\MenuCalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

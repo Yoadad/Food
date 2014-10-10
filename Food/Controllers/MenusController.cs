@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Food.Models;
+using Food.Biz;
 
 namespace Food.Controllers
 {
@@ -17,6 +18,7 @@ namespace Food.Controllers
         // GET: Menus
         public ActionResult Index()
         {
+            
             return View(db.Menus.ToList());
         }
 
@@ -113,6 +115,13 @@ namespace Food.Controllers
             db.Menus.Remove(menu);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult MenuCalendar()
+        {
+            var biz = new MenuBiz();
+            var model = biz.GetWeekMenu(DateTime.Now);
+            return View(model);
         }
 
         protected override void Dispose(bool disposing)

@@ -8,7 +8,7 @@ namespace Food.Models
     public partial class FoodContext : DbContext
     {
         public FoodContext()
-            : base("name=FoodContext")
+            : base("name=Food")
         {
         }
 
