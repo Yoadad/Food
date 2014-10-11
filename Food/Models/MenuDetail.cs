@@ -19,4 +19,10 @@ namespace Food.Models
 
         public virtual Menu Menu { get; set; }
     }
+
+    public class MenuDetailModel
+    {
+        public int Id { get; set; }
+        public FoodModel Food { get; set; }
+    }
 }

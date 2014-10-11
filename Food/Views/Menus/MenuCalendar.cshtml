@@ -1,6 +1,10 @@
-﻿@model IEnumerable<Food.Models.Menu>
+﻿@model IEnumerable<Food.Models.MenuModel>
 
 <h1>Men&uacute; semanal</h1>
+<ul class="pagination">
+    <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index - 1 })">&laquo;</a></li>
+    <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index + 1 })">&raquo;</a></li>
+</ul>
 
 <table class="table">
     <tr>
@@ -19,4 +23,24 @@
             </td>
         }
     </tr>
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                <ul>
+                    @if (item.MenuDetails != null)
+                    {                    
+                        foreach (var detail in item.MenuDetails)
+                        {
+                            <li>
+                                @detail.Food.Name
+                            </li>
+                        }
+                    }
+                </ul>
+            </td>
+        }
+    </tr>
+
 </table>
+

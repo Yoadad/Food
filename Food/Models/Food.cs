@@ -27,4 +27,11 @@ namespace Food.Models
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
+
+    public class FoodModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Type { get; set; }
+    }
 }

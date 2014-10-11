@@ -117,10 +117,12 @@ namespace Food.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult MenuCalendar()
+        public ActionResult MenuCalendar(int id = 0)
         {
+            ViewBag.Index = id;
+            var date = DateTime.Today.AddDays(id*7);
             var biz = new MenuBiz();
-            var model = biz.GetWeekMenu(DateTime.Now);
+            var model = biz.GetWeekMenu(date);
             return View(model);
         }
 

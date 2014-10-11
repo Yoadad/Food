@@ -44,6 +44,7 @@
                             <li>@Html.ActionLink("Estatus", "Index", "OrderStatus")</li>
                             <li>@Html.ActionLink("Ordenes", "Index", "Orders")</li>
                             <li>@Html.ActionLink("Detalle Ordenes", "Index", "OrderDetails")</li>
+                            <li>@Html.ActionLink("Menú semanal", "MenuCalendar", "Menus")</li>
                         </ul>
                     </li>        
                     
@@ -72,6 +73,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
