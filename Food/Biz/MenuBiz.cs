@@ -14,7 +14,7 @@ namespace Food.Biz
         {
             var menus = new List<MenuModel>();
             var sundayDate = GetSundayOfWeek(date);
-            for (int i = 0; i < 7; i++)
+            for (int i = 1; i < 6; i++)
             {
                 var dayDate = sundayDate.AddDays(i);
                 AddMenuIfDontExistInThisDate(dayDate);
@@ -162,6 +162,7 @@ namespace Food.Biz
                                                                             }).First()
                             })
             };
+            
             return menuModel;
         }
     }

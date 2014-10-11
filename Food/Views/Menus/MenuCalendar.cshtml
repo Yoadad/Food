@@ -1,43 +1,62 @@
 ﻿@model IEnumerable<Food.Models.MenuModel>
 
-<h1>Men&uacute; semanal</h1>
-<ul class="pagination">
-    <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index - 1 })">&laquo;</a></li>
-    <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index + 1 })">&raquo;</a></li>
-</ul>
+<div class="row">
+    <div class="col-md-6">
+        <h3 class="text-title">Men&uacute; del @Model.First().Date.ToString("dd-MM-yyyy") al @Model.Last().Date.ToString("dd-MM-yyy")</h3>
+    </div>
+    <div class="col-md-6 text-right">
+        <ul class="pagination">
+            <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index - 1 })">Semana anterior</a></li>
+            <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index + 1 })">Siguiente semana</a></li>
+        </ul>
+    </div>
+</div>
 
-<table class="table">
+
+
+
+
+<table class="table table-responsive">
     <tr>
         @foreach (var item in Model)
         {
             <td>
-                <h4>@item.Name</h4>
-            </td>
-        }
-    </tr>
-    <tr>
-        @foreach (var item in Model)
-        {
-            <td>
-                <h5>@item.Date.ToString("dd/MM/yyyy")</h5>
-            </td>
-        }
-    </tr>
-    <tr>
-        @foreach (var item in Model)
-        {
-            <td>
-                <ul>
-                    @if (item.MenuDetails != null)
-                    {                    
-                        foreach (var detail in item.MenuDetails)
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@item.Name</h3>
+                    </div>
+                    
+                    <ul class="list-group">
+                        <li class="list-group-item text-center">
+                            @item.Date.ToString("dd/MM/yyyy")
+                        </li>
+
+                        @if (item.MenuDetails != null)
                         {
-                            <li>
-                                @detail.Food.Name
+                            <li class="list-group-item alert alert-info">
+                                Plato fuerte
                             </li>
+                            foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 1))
+                            {
+                                <li class="list-group-item" >
+                                    <input type="radio" class="food" name="food-@item.Id">
+                                    <span>@detail.Food.Name</span>
+                                </li>
+                            }
+                            <li class="list-group-item alert alert-success">
+                                Guarniciones
+                            </li>
+                            foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 2))
+                            {
+                                <li class="list-group-item">
+                                    <input type="checkbox">
+                                    <span>@detail.Food.Name</span>
+                                </li>
+                            }
                         }
-                    }
-                </ul>
+                    </ul>
+
+                </div>
             </td>
         }
     </tr>
