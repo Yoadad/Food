@@ -116,13 +116,23 @@ namespace Food.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [HttpGet]
         public ActionResult MenuCalendar(int id = 0)
         {
             ViewBag.Index = id;
-            var date = DateTime.Today.AddDays(id*7);
+            var date = DateTime.Today.AddDays(id * 7);
             var biz = new MenuBiz();
             var model = biz.GetWeekMenu(date);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult MenuCalendar([Bind(Include="Id,Name,Index") ]MenuModel menu)
+        {
+            ViewBag.Index = menu.Index;
+            var date = DateTime.Today.AddDays(menu.Index * 7);
+            var biz = new MenuBiz();
+            var model = biz.GetWeekMenu(date);
+            var food = this.Request.Params["food"];
             return View(model);
         }
 

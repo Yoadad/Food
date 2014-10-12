@@ -25,37 +25,45 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">@item.Name</h3>
                     </div>
-                    
-                    <ul class="list-group">
-                        <li class="list-group-item text-center">
-                            @item.Date.ToString("dd/MM/yyyy")
-                        </li>
+                    <form id="order-@item.Id" action="/Menus/MenuCalendar" method="post">
 
-                        @if (item.MenuDetails != null)
-                        {
-                            <li class="list-group-item alert alert-info">
-                                Plato fuerte
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <input type="hidden" name="Name" value="@item.Name" />
+                        <input type="hidden" name="Index" value="@ViewBag.Index" />
+
+                        <ul class="list-group">
+                            <li class="list-group-item text-center">
+                                @item.Date.ToString("dd/MM/yyyy")
                             </li>
-                            foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 1))
+
+                            @if (item.MenuDetails != null)
                             {
-                                <li class="list-group-item" >
-                                    <input type="radio" class="food" name="food-@item.Id">
-                                    <span>@detail.Food.Name</span>
+                                <li class="list-group-item alert alert-info">
+                                    <span>Plato fuerte</span>
+                                </li>
+                                foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 1))
+                                {
+                                    <li class="list-group-item">
+                                        <input type="radio" class="food" name="food" value="@detail.Id">
+                                        <span>@detail.Food.Name</span>
+                                    </li>
+                                }
+                                <li class="list-group-item alert alert-info">
+                                    <span>Guarniciones</span>
+                                </li>
+                                foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 2))
+                                {
+                                    <li class="list-group-item">
+                                        <input type="checkbox" name="food" value="@detail.Id">
+                                        <span>@detail.Food.Name</span>
+                                    </li>
+                                }
+                                <li class="list-group-item text-right">
+                                    <input type="submit" value="Realizar pedido" class="btn btn-primary" />
                                 </li>
                             }
-                            <li class="list-group-item alert alert-success">
-                                Guarniciones
-                            </li>
-                            foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 2))
-                            {
-                                <li class="list-group-item">
-                                    <input type="checkbox">
-                                    <span>@detail.Food.Name</span>
-                                </li>
-                            }
-                        }
-                    </ul>
-
+                        </ul>
+                    </form>
                 </div>
             </td>
         }

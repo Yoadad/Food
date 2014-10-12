@@ -31,5 +31,6 @@ namespace Food.Models
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public virtual IEnumerable<MenuDetailModel> MenuDetails { get; set; }
+        public int Index { get; set; }
     }
 }
