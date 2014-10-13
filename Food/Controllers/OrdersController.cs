@@ -135,7 +135,7 @@ namespace Food.Controllers
             
             model.Menus = menus;
             model.Orders = orders;
-            return View(model);
+            return View("~/Views/Orders/WeekOrders.cshtml", model);
         }
 
         [HttpPost]
