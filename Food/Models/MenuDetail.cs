@@ -13,7 +13,7 @@ namespace Food.Models
 
         public int MenuId { get; set; }
 
-        public int FoodId { get; set; }       
+        public int FoodId { get; set; }
 
         public virtual Food Food { get; set; }
 

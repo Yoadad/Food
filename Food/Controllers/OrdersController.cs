@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Food.Models;
+using Food.Biz;
 
 namespace Food.Controllers
 {
@@ -118,6 +119,40 @@ namespace Food.Controllers
             db.Orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult OrderCalendar(int id = 0)
+        {
+            ViewBag.Index = id;
+
+            var model = new WeekOrderModel();
+            var date = DateTime.Today.AddDays(id * 7);
+            var menuBiz = new MenuBiz();
+            var menus = menuBiz.GetWeekMenu(date);
+            var orderBiz = new OrderBiz();
+            var orders = orderBiz.GetWeekOrders(date, User.Identity.ToString());
+            
+            model.Menus = menus;
+            model.Orders = orders;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult OrderCalendar([Bind(Include = "Id,Name,Index")]MenuModel menu)
+        {
+            ViewBag.Index = menu.Index;
+            var menuBiz = new MenuBiz();
+            var menuDetails = new List<MenuDetail>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                var foodId = int.Parse(this.Request.Params["food" + (i + 1)]);
+                menuDetails.Add(new MenuDetail() { MenuId = menu.Id, FoodId = foodId });
+            }
+
+            menuBiz.SaveMenu(menuDetails);
+            return RedirectToAction("MenuCalendar", new { id = menu.Index });
         }
 
         protected override void Dispose(bool disposing)

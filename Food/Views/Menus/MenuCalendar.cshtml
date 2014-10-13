@@ -1,22 +1,92 @@
-﻿@model IEnumerable<Food.Models.Menu>
+﻿@model Food.Models.WeekMenuModel
+@using Food.Services;
+@{
+    var firstDate = Model.Menus.First().Date;
+    var lastDate = Model.Menus.Last().Date;
+}
+<div class="row">
+    <div class="col-md-6">
+        <br />
+        <h4 class="text-title">
+            @string.Format("Menú del {0} de {1} de {2} al {3} de {4} de {5}",
+                            firstDate.Day,
+                            DateService.GetTextMonth(firstDate.Month),
+                            firstDate.Year,
+                            lastDate.Day,
+                            DateService.GetTextMonth(lastDate.Month),
+                            lastDate.Year)
+        </h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <ul class="pagination">
+            <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index - 1 })">Semana anterior</a></li>
+            <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = 0 })">Semana actual</a></li>
+            <li><a href="@Url.Action("MenuCalendar", "Menus", new {id = ViewBag.Index + 1 })">Siguiente semana</a></li>
+        </ul>
+    </div>
+</div>
 
-<h1>Men&uacute; semanal</h1>
-
-<table class="table">
+<table class="table table-responsive">
     <tr>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Menus)
         {
             <td>
-                <h4>@item.Name</h4>
+                <form id="order-@item.Id" action="/Menus/MenuCalendar" method="post">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@item.Name</h3>
+                        </div>
+
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <input type="hidden" name="Name" value="@item.Name" />
+                        <input type="hidden" name="Index" value="@ViewBag.Index" />
+
+                        <ul class="list-group">
+                            <li class="list-group-item text-center">
+                                @item.Date.ToString("dd/MM/yyyy")
+                            </li>
+
+                            @if (item.MenuDetails != null)
+                            {
+                                for (int i = 0; i < 3; i++)
+                                { 
+                                    <li class="list-group-item alert alert-info">
+                                        <span>@string.Format("Plato fuerte {0}", i + 1)</span>
+                                        <select id="food@(i+1)" name="food@(i+1)">
+                                            <option value="0">...</option>
+                                            @foreach (var primary in Model.PrimaryFoods)
+                                            {
+                                                <option value="@primary.Id" @(item.MenuDetails.Count() > i && primary.Id == item.MenuDetails.ToArray()[i].Food.Id ? "selected" : "")>@primary.Name</option>
+                                            }
+                                        </select>
+                                    </li>
+                                }
+
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    <li class="list-group-item alert alert-success">
+                                        <span>@string.Format("Guarnición {0}", i + 1)</span>
+                                        <select id="food@(i+4)" name="food@(i+4)">
+                                            <option value="0" style="color:#dfdfdf">...</option>
+                                            @foreach (var secondary in Model.SecondaryFoods)
+                                            {
+                                                <option value="@secondary.Id" @(item.MenuDetails.Count() > i+3 && secondary.Id == item.MenuDetails.ToArray()[i + 3].Food.Id ? "selected" : "")>@secondary.Name</option>
+                                            }
+                                        </select>
+                                    </li>
+                                }
+                            }
+                        </ul>
+
+                        <div class="panel-footer text-right">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                        </div>
+
+                    </div>
+                </form>
             </td>
         }
     </tr>
-    <tr>
-        @foreach (var item in Model)
-        {
-            <td>
-                <h5>@item.Date.ToString("dd/MM/yyyy")</h5>
-            </td>
-        }
-    </tr>
+
 </table>
+

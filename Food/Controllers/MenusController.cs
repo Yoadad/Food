@@ -117,11 +117,41 @@ namespace Food.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult MenuCalendar()
+        [HttpGet]
+        public ActionResult MenuCalendar(int id = 0)
         {
-            var biz = new MenuBiz();
-            var model = biz.GetWeekMenu(DateTime.Now);
+            ViewBag.Index = id;
+
+            var model = new WeekMenuModel();
+            var date = DateTime.Today.AddDays(id * 7);
+            var menuBiz = new MenuBiz();
+            var foodBiz = new FoodBiz();
+            var menus = menuBiz.GetWeekMenu(date);
+            var primaryFoods = foodBiz.GetPrimaryFoods();
+            var secondaryFoods = foodBiz.GetSecondaryFoods();
+
+            model.Menus = menus;
+            model.PrimaryFoods = primaryFoods;
+            model.SecondaryFoods = secondaryFoods;
+
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult MenuCalendar([Bind(Include="Id,Name,Index") ]MenuModel menu)
+        {
+            ViewBag.Index = menu.Index;
+            var menuBiz = new MenuBiz();
+            var menuDetails = new List<MenuDetail>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                var foodId = int.Parse(this.Request.Params["food"+(i+1)]);
+                menuDetails.Add(new MenuDetail() { MenuId = menu.Id, FoodId = foodId});
+            }
+
+            menuBiz.SaveMenu(menuDetails);
+            return RedirectToAction("MenuCalendar", new { id=menu.Index});
         }
 
         protected override void Dispose(bool disposing)

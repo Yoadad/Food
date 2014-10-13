@@ -12,7 +12,6 @@ namespace Food.Models
         {
         }
 
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -23,9 +22,7 @@ namespace Food.Models
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<MenuDetail> MenuDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -45,9 +42,9 @@ namespace Food.Models
                 .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<AspNetUser>()
-                .HasMany(e => e.OrderDetails)
+                .HasMany(e => e.Orders)
                 .WithOptional(e => e.AspNetUser)
-                .HasForeignKey(e => e.CustomerId);
+                .HasForeignKey(e => e.UserId);
 
             modelBuilder.Entity<AspNetUser>()
                 .HasMany(e => e.Locations)
@@ -65,18 +62,13 @@ namespace Food.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Food>()
-                .HasMany(e => e.OrderDetails)
-                .WithRequired(e => e.Food)
-                .WillCascadeOnDelete(false);
+                .HasMany(e => e.Orders)
+                .WithMany(e => e.Foods)
+                .Map(m => m.ToTable("OrderDetail").MapLeftKey("FoodId").MapRightKey("OrderId"));
 
             modelBuilder.Entity<Menu>()
                 .HasMany(e => e.MenuDetails)
                 .WithRequired(e => e.Menu)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Order>()
-                .HasMany(e => e.OrderDetails)
-                .WithRequired(e => e.Order)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<OrderStatu>()

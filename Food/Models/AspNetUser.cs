@@ -12,7 +12,7 @@ namespace Food.Models
         {
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            OrderDetails = new HashSet<OrderDetail>();
+            Orders = new HashSet<Order>();
             AspNetRoles = new HashSet<AspNetRole>();
             Locations = new HashSet<Location>();
         }
@@ -48,7 +48,7 @@ namespace Food.Models
 
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
 
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
 
