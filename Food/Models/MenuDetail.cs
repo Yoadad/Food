@@ -13,16 +13,10 @@ namespace Food.Models
 
         public int MenuId { get; set; }
 
-        public int FoodId { get; set; }       
+        public int FoodId { get; set; }
 
         public virtual Food Food { get; set; }
 
         public virtual Menu Menu { get; set; }
-    }
-
-    public class MenuDetailModel
-    {
-        public int Id { get; set; }
-        public FoodModel Food { get; set; }
     }
 }

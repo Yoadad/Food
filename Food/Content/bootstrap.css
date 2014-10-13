@@ -6822,3 +6822,7 @@ td.visible-print {
 {
     color:#843d69;
 }
+select
+{
+    width:180px;
+}

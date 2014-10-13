@@ -17,5 +17,43 @@ namespace Food.Repo
                         .ToList();
             }
         }
+        public MenuDetail GetMenuDetailById(int id)
+        {
+            using (var db = new FoodContext())
+            {
+                var menuDetail = db.MenuDetails.FirstOrDefault(md => md.Id == id);
+                return menuDetail;
+            }
+        }
+
+
+        public void AddMenuDetail(MenuDetail menuDetail)
+        {
+            using (var db = new FoodContext())
+            {
+                db.MenuDetails.Add(menuDetail);
+                db.SaveChanges();
+            }
+        }
+        public void EditMenuDetail(MenuDetail menuDetail)
+        {
+            using (var db = new FoodContext())
+            {
+                db.MenuDetails.Attach(menuDetail);
+                db.Entry(menuDetail).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+        public void RemoveMenuDetail(MenuDetail menuDetail)
+        {
+            using (var db = new FoodContext())
+            {
+                var menuDetailToRemove = db.MenuDetails.FirstOrDefault(m => m.Id == menuDetail.Id);
+                db.MenuDetails.Remove(menuDetailToRemove);
+                db.SaveChanges();
+            }
+        }
+        
+
     }
 }

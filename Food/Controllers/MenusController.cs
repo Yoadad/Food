@@ -120,20 +120,36 @@ namespace Food.Controllers
         public ActionResult MenuCalendar(int id = 0)
         {
             ViewBag.Index = id;
+
+            var model = new WeekMenuModel();
             var date = DateTime.Today.AddDays(id * 7);
-            var biz = new MenuBiz();
-            var model = biz.GetWeekMenu(date);
+            var menuBiz = new MenuBiz();
+            var foodBiz = new FoodBiz();
+            var menus = menuBiz.GetWeekMenu(date);
+            var primaryFoods = foodBiz.GetPrimaryFoods();
+            var secondaryFoods = foodBiz.GetSecondaryFoods();
+
+            model.Menus = menus;
+            model.PrimaryFoods = primaryFoods;
+            model.SecondaryFoods = secondaryFoods;
+
             return View(model);
         }
         [HttpPost]
         public ActionResult MenuCalendar([Bind(Include="Id,Name,Index") ]MenuModel menu)
         {
             ViewBag.Index = menu.Index;
-            var date = DateTime.Today.AddDays(menu.Index * 7);
-            var biz = new MenuBiz();
-            var model = biz.GetWeekMenu(date);
-            var food = this.Request.Params["food"];
-            return View(model);
+            var menuBiz = new MenuBiz();
+            var menuDetails = new List<MenuDetail>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                var foodId = int.Parse(this.Request.Params["food"+(i+1)]);
+                menuDetails.Add(new MenuDetail() { MenuId = menu.Id, FoodId = foodId});
+            }
+
+            menuBiz.SaveMenu(menuDetails);
+            return RedirectToAction("MenuCalendar", new { id=menu.Index});
         }
 
         protected override void Dispose(bool disposing)

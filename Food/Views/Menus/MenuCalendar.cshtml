@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Food.Models.MenuModel>
+﻿@model Food.Models.WeekMenuModel
 
 <div class="row">
     <div class="col-md-6">
-        <h3 class="text-title">Men&uacute; del @Model.First().Date.ToString("dd-MM-yyyy") al @Model.Last().Date.ToString("dd-MM-yyy")</h3>
+        <h3 class="text-title">Men&uacute; del @Model.Menus.First().Date.ToString("dd-MM-yyyy") al @Model.Menus.Last().Date.ToString("dd-MM-yyy")</h3>
     </div>
     <div class="col-md-6 text-right">
         <ul class="pagination">
@@ -12,20 +12,16 @@
     </div>
 </div>
 
-
-
-
-
 <table class="table table-responsive">
     <tr>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Menus)
         {
             <td>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">@item.Name</h3>
-                    </div>
-                    <form id="order-@item.Id" action="/Menus/MenuCalendar" method="post">
+                <form id="order-@item.Id" action="/Menus/MenuCalendar" method="post">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@item.Name</h3>
+                        </div>
 
                         <input type="hidden" name="Id" value="@item.Id" />
                         <input type="hidden" name="Name" value="@item.Name" />
@@ -38,33 +34,40 @@
 
                             @if (item.MenuDetails != null)
                             {
-                                <li class="list-group-item alert alert-info">
-                                    <span>Plato fuerte</span>
-                                </li>
-                                foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 1))
-                                {
-                                    <li class="list-group-item">
-                                        <input type="radio" class="food" name="food" value="@detail.Id">
-                                        <span>@detail.Food.Name</span>
+                                for (int i = 0; i < 3; i++)
+                                { 
+                                    <li class="list-group-item alert alert-info">
+                                        <span>@string.Format("Plato fuerte {0}", i + 1)</span>
+                                        <select id="food@(i+1)" name="food@(i+1)">
+                                            @foreach (var primary in Model.PrimaryFoods)
+                                            {
+                                                <option value="@primary.Id" @(item.MenuDetails.Count() > 0 && primary.Id == item.MenuDetails.ToArray()[i].Food.Id ? "selected" : "")>@primary.Name</option>
+                                            }
+                                        </select>
                                     </li>
                                 }
-                                <li class="list-group-item alert alert-info">
-                                    <span>Guarniciones</span>
-                                </li>
-                                foreach (var detail in item.MenuDetails.Where(md => md.Food.Type == 2))
+
+                                for (int i = 0; i < 3; i++)
                                 {
-                                    <li class="list-group-item">
-                                        <input type="checkbox" name="food" value="@detail.Id">
-                                        <span>@detail.Food.Name</span>
+                                    <li class="list-group-item alert alert-success">
+                                        <span>@string.Format("Guarnición {0}", i + 1)</span>
+                                        <select id="food@(i+4)" name="food@(i+4)">
+                                            @foreach (var secondary in Model.SecondaryFoods)
+                                            {
+                                                <option value="@secondary.Id" @(item.MenuDetails.Count() > 0 && secondary.Id == item.MenuDetails.ToArray()[i + 3].Food.Id ? "selected" : "")>@secondary.Name</option>
+                                            }
+                                        </select>
                                     </li>
                                 }
-                                <li class="list-group-item text-right">
-                                    <input type="submit" value="Realizar pedido" class="btn btn-primary" />
-                                </li>
                             }
                         </ul>
-                    </form>
-                </div>
+
+                        <div class="panel-footer text-right">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                        </div>
+
+                    </div>
+                </form>
             </td>
         }
     </tr>

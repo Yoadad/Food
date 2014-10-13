@@ -8,6 +8,15 @@ namespace Food.Repo
 {
     public class FoodRepo
     {
+
+        public IEnumerable<Food.Models.Food> GetFoods()
+        {
+            using (var db = new FoodContext())
+            {
+                var foods = db.Foods.ToList();
+                return foods;
+            }
+        }
         public Food.Models.Food GetFoodById(int id)
         {
             using (var db = new FoodContext())

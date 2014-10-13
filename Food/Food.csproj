@@ -160,7 +160,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Biz\FoodBiz.cs" />
     <Compile Include="Biz\MenuBiz.cs" />
+    <Compile Include="Biz\OrderBiz.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
@@ -169,7 +171,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuDetailsController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
-    <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\OrderStatusController.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,6 +185,7 @@
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\FoodContext.cs" />
+    <Compile Include="Models\FoodModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -199,6 +201,8 @@
     <Compile Include="Repo\FoodRepo.cs" />
     <Compile Include="Repo\MenuDetailRepo.cs" />
     <Compile Include="Repo\MenuRepo.cs" />
+    <Compile Include="Repo\OrderRepo.cs" />
+    <Compile Include="Services\DateService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -293,11 +297,6 @@
     <Content Include="Views\Foods\Details.cshtml" />
     <Content Include="Views\Foods\Edit.cshtml" />
     <Content Include="Views\Foods\Index.cshtml" />
-    <Content Include="Views\OrderDetails\Create.cshtml" />
-    <Content Include="Views\OrderDetails\Delete.cshtml" />
-    <Content Include="Views\OrderDetails\Details.cshtml" />
-    <Content Include="Views\OrderDetails\Edit.cshtml" />
-    <Content Include="Views\OrderDetails\Index.cshtml" />
     <Content Include="Views\Menus\Create.cshtml" />
     <Content Include="Views\Menus\Delete.cshtml" />
     <Content Include="Views\Menus\Details.cshtml" />
@@ -309,9 +308,8 @@
     <Content Include="Views\MenuDetails\Edit.cshtml" />
     <Content Include="Views\MenuDetails\Index.cshtml" />
     <Content Include="Views\MenuDetails\EditorTemplates\FoodViewModel.cshtml" />
-    <Content Include="Views\OrderDetails\EditorTemplates\MenuDetailViewModel.cshtml" />
-    <Content Include="Views\OrderDetails\EditorTemplates\FoodViewModel.cshtml" />
     <Content Include="Views\Menus\MenuCalendar.cshtml" />
+    <Content Include="Views\Orders\WeekOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

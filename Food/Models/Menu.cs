@@ -24,13 +24,4 @@ namespace Food.Models
 
         public virtual ICollection<MenuDetail> MenuDetails { get; set; }
     }
-
-    public class MenuModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public virtual IEnumerable<MenuDetailModel> MenuDetails { get; set; }
-        public int Index { get; set; }
-    }
 }

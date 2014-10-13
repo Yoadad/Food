@@ -11,7 +11,7 @@ namespace Food.Models
     {
         public Order()
         {
-            OrderDetails = new HashSet<OrderDetail>();
+            Foods = new HashSet<Food>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -25,8 +25,13 @@ namespace Food.Models
 
         public int StatusId { get; set; }
 
+        [StringLength(128)]
+        public string UserId { get; set; }
+
+        public virtual AspNetUser AspNetUser { get; set; }
+
         public virtual OrderStatu OrderStatu { get; set; }
 
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<Food> Foods { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Food.Models
         public Food()
         {
             MenuDetails = new HashSet<MenuDetail>();
-            OrderDetails = new HashSet<OrderDetail>();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }
@@ -25,13 +25,6 @@ namespace Food.Models
 
         public virtual ICollection<MenuDetail> MenuDetails { get; set; }
 
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-    }
-
-    public class FoodModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Type { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
