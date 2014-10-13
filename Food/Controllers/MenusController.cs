@@ -116,6 +116,7 @@ namespace Food.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public ActionResult MenuCalendar(int id = 0)
         {
@@ -135,6 +136,7 @@ namespace Food.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult MenuCalendar([Bind(Include="Id,Name,Index") ]MenuModel menu)
         {

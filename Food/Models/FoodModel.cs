@@ -36,17 +36,25 @@ namespace Food.Models
         public int Type { get; set; }
         public bool Selected { get; set; }
     }
+
+    public class WeekOrderModel
+    {
+        public int Index { get; set; }
+        public IEnumerable<MenuModel> Menus { get; set; }
+        public IEnumerable<OrderModel> Orders { get; set; }
+    }
+
     public class OrderModel
     {
         public int Id { get; set; }
         public string UserId { get; set; }
         public DateTime Date { get; set; }
+        public OrderStatu Status { get; set; } 
         public MenuModel Menu { get; set; }
         public IEnumerable<OrderDetailModel> OrderDetails { get;set; }
     }
     public class OrderDetailModel
     {
-        public int Id { get; set; }
-        public IEnumerable<Food> Foods { get; set; }
+        public Food Food { get; set; }
     }
 }

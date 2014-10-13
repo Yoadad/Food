@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Food.Models.Food>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Comida";
 }
 
-<h2>Index</h2>
+<h2>Comida</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar comida", "Create")
 </p>
 <table class="table">
     <tr>
@@ -20,18 +20,18 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderBy(f => f.Type)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Type)
+            @( item.Type == 1 ? "Plato fuerte" : "Guarnición" )
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
