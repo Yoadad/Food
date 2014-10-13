@@ -28,9 +28,9 @@ namespace Food.Biz
         {
             var orderRepo = new OrderRepo();
             var order = orderRepo.GetOrderByDateAndUser(date,userId);
-            var statusRepo = new StatuRepo();
-            var status = statusRepo.GetOrderStatus(1);//1 = Pedido; 2 = Entregado; 3 = Cancelado
-            var orderDetailRepo = new OrderDetailRepo();
+            //var statusRepo = new StatuRepo();
+            //var status = statusRepo.GetOrderStatus(1);//1 = Pedido; 2 = Entregado; 3 = Cancelado
+            //var orderDetailRepo = new OrderDetailRepo();
             var foodRepo = new FoodRepo();
             var menu = GetMenuByDate(date);
             var orderModel = new OrderModel()
@@ -38,10 +38,11 @@ namespace Food.Biz
                 Date = date,
                 UserId = userId,
                 Menu = menu,
-                OrderDetails = order == null ? new List<OrderDetailModel>() : orderDetailRepo.GetOrderDetailsByOrder(order.Id)
-                .Select(od => new OrderDetailModel() { 
-                    Food = foodRepo.GetFoodById(od.FoodId)
-                })
+                OrderDetails = new List<OrderDetailModel>()
+                //OrderDetails = order == null ? new List<OrderDetailModel>() : orderDetailRepo.GetOrderDetailsByOrder(order.Id)
+                //.Select(od => new OrderDetailModel() { 
+                //    Food = foodRepo.GetFoodById(od.FoodId)
+                //})
             };
             return orderModel;
         }
